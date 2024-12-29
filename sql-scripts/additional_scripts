@@ -1,0 +1,16 @@
+-- alter existing fields created_at and updated_at in expense table
+ALTER TABLE tbl_expenses
+    MODIFY COLUMN created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    MODIFY COLUMN updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL;
+
+-- insert new fields created_at and updated_at into task table
+ALTER TABLE tbl_tasks
+    ADD COLUMN created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    ADD COLUMN updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL;
+
+-- alter existeing records to avoid NOT NULL error
+UPDATE tbl_tasks
+    SET 
+        created_at = NOW(),
+        updated_at = NOW()
+    WHERE created_at IS NULL;

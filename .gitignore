@@ -1,0 +1,91 @@
+# IntelliJ IDEA specific files
+.idea/
+*.iml
+*.iws
+out/
+.idea_modules/
+
+# MacOS specific files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Thumbnails
+._*
+
+# Files that might appear in macOS
+.Spotlight-V100
+.Trashes
+Icon?
+._*
+
+# Java specific files
+*.class
+*.jar
+*.war
+*.ear
+
+# Logs
+logs/
+*.log
+
+# Spring Boot specific files
+target/
+!src/main/resources/application*.properties
+
+# Maven specific files
+.mvn/
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+
+# Gradle specific files
+.gradle/
+build/
+.gradle-cache/
+*.lock
+!gradle-wrapper.jar
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.swp
+*.swo
+*.~*
+
+# Generated files
+*.gz
+*.zip
+*.tar
+*.rar
+*.7z
+
+# IDE specific files
+*.idea/
+*.vscode/
+*.classpath
+*.project
+*.settings/
+*.factorypath
+
+# Test output
+test-output/
+
+# OS generated files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Node modules for frontend
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Git-specific
+*.orig
