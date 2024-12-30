@@ -34,7 +34,11 @@ public class ExpenseServiceImpl implements ExpenseService{
 
     @Override
     public void deleteExpenseById(Long id) {
-        expenseRepo.deleteById(id);
+        try {
+            expenseRepo.deleteById(id);
+        } catch (ResourceNotFoundException e) {
+            throw new ResourceNotFoundException("Expense not found for ID: " + id);
+        }
     }
 
     @Override
