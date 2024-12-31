@@ -2,6 +2,7 @@ package spring_boot_app.expense_tracker_api.service;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import spring_boot_app.expense_tracker_api.entity.User;
 import spring_boot_app.expense_tracker_api.entity.UserModel;
@@ -16,6 +17,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    private PasswordEncoder bcryptEncoder;
+
     @Override
     public User createUser(UserModel user) {
         String userEmail = user.getEmail();
@@ -26,6 +30,7 @@ public class UserServiceImpl implements UserService {
 
         User newUser = new User();
         BeanUtils.copyProperties(user, newUser);
+        newUser.setPassword(bcryptEncoder.encode(newUser.getPassword()));
         return userRepository.save(newUser);
     }
 
@@ -42,7 +47,9 @@ public class UserServiceImpl implements UserService {
         Optional.ofNullable(user.getName()).ifPresent(existingUser::setName);
         Optional.ofNullable(user.getAge()).ifPresent(existingUser::setAge);
         Optional.ofNullable(user.getEmail()).ifPresent(existingUser::setEmail);
-        Optional.ofNullable(user.getPassword()).ifPresent(existingUser::setPassword);
+        Optional.ofNullable(user.getPassword())
+                .map(password -> bcryptEncoder.encode(password))
+                .ifPresent(existingUser::setPassword);
 
         return userRepository.save(existingUser);
     }
