@@ -14,3 +14,18 @@ UPDATE tbl_tasks
         created_at = NOW(),
         updated_at = NOW()
     WHERE created_at IS NULL;
+
+-- update reference relationship between expenses and users table
+ALTER TABLE tbl_expenses
+    ADD COLUMN user_id BIGINT,  -- first allow it to be null to update all the records
+    ADD CONSTRAINT fk_user
+    FOREIGN KEY (user_id)
+    REFERENCES users(id)
+    ON DELETE CASCADE;
+
+UPDATE tbl_expenses
+    SET user_id = 1;
+
+-- reinforence constraint
+ALTER TABLE tbl_expenses 
+    MODIFY COLUMN user_id BIGINT NOT NULL;

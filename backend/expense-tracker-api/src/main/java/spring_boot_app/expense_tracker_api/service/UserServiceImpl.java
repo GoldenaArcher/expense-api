@@ -2,6 +2,9 @@ package spring_boot_app.expense_tracker_api.service;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import spring_boot_app.expense_tracker_api.entity.User;
@@ -35,14 +38,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User readUser(Long id) {
+    public User readUser() {
+        Long id = getLoggedInUser().getId();;
         return userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found for the id: " + id));
     }
 
     @Override
-    public User updateUser(UserModel user, Long id) {
-        User existingUser = readUser(id);
+    public User updateUser(UserModel user) {
+        User existingUser = readUser();
 
         Optional.ofNullable(user.getName()).ifPresent(existingUser::setName);
         Optional.ofNullable(user.getAge()).ifPresent(existingUser::setAge);
@@ -55,8 +59,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void delete(Long id) {
-        User user = readUser(id);
+    public void delete() {
+        User user = readUser();
         userRepository.delete(user);
+    }
+
+    @Override
+    public User getLoggedInUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found for the email: " + email));
     }
 }

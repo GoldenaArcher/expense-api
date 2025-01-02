@@ -6,9 +6,11 @@ import spring_boot_app.expense_tracker_api.entity.UserModel;
 public interface UserService {
     User createUser(UserModel user);
 
-    User readUser(Long id);
+    User readUser();
 
-    User updateUser(UserModel user, Long id);
+    User updateUser(UserModel user);
 
-    void delete(Long id);
+    void delete();
+
+    User getLoggedInUser();
 }
