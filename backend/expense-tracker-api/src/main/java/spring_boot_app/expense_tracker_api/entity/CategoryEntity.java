@@ -1,7 +1,7 @@
 package spring_boot_app.expense_tracker_api.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,41 +12,30 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import java.math.BigDecimal;
-import java.sql.Date;
 import java.sql.Timestamp;
 
+@Entity
+@Table(name = "tbl_categories")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
 @Builder
-@Table(name = "tbl_expenses")
-public class Expense {
+public class CategoryEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "expense_name")
-    @Size(min = 3, message = "Expense name must be at least 3 characters.")
-    private String name;
+    @Column(name = "category_id", unique = true)
+    private String categoryId;
 
-    @Column(name = "description")
+    @Column(unique = true)
+    @NotBlank(message = "Category name must not be empty.")
+    @Size(min = 3, message = "Category name must be at least 3 characters.")
+    private String name;
     private String description;
 
-    @Column(name = "expense_amount")
-    private BigDecimal amount;
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "category_id", nullable = false)
-    @OnDelete(action = OnDeleteAction.RESTRICT)
-    private CategoryEntity category;
-
-    @Column(name = "expense_id", unique = true)
-    private String expenseId;
-
-    @Column(name = "date")
-    private Date date;
+    @Column(name = "category_icon")
+    private String categoryIcon;
 
     @Column(name = "created_at", nullable = false, updatable = false)
     @CreationTimestamp
@@ -56,10 +45,8 @@ public class Expense {
     @UpdateTimestamp
     private Timestamp updatedAt;
 
-    // only use uni-directional relationship here
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
     private User user;
 }

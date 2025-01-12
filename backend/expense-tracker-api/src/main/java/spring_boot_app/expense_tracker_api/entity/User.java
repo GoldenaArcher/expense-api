@@ -9,7 +9,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "tbl_user")
+@Table(name = "tbl_users")
 @Data
 public class User {
     @Id
