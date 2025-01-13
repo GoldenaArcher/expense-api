@@ -1,9 +1,7 @@
 package spring_boot_app.expense_tracker_api.service;
 
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import spring_boot_app.expense_tracker_api.dto.ExpenseDTO;
-import spring_boot_app.expense_tracker_api.entity.Expense;
 
 import java.sql.Date;
 import java.util.List;

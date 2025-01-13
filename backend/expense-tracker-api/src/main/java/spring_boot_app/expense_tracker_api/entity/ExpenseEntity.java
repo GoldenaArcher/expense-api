@@ -22,7 +22,7 @@ import java.sql.Timestamp;
 @Entity
 @Builder
 @Table(name = "tbl_expenses")
-public class Expense {
+public class ExpenseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

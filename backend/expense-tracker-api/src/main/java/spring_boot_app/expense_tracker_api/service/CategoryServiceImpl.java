@@ -8,6 +8,7 @@ import spring_boot_app.expense_tracker_api.entity.CategoryEntity;
 import spring_boot_app.expense_tracker_api.entity.User;
 import spring_boot_app.expense_tracker_api.exceptions.ResourceAlreadyExistsException;
 import spring_boot_app.expense_tracker_api.exceptions.ResourceNotFoundException;
+import spring_boot_app.expense_tracker_api.mapper.CategoryMapper;
 import spring_boot_app.expense_tracker_api.repository.CategoryRepository;
 
 import java.util.List;
@@ -20,11 +21,12 @@ import java.util.stream.Collectors;
 public class CategoryServiceImpl implements CategoryService{
     private final CategoryRepository categoryRepository;
     private final UserService userService;
+    private final CategoryMapper categoryMapper;
 
     @Override
     public List<CategoryDTO> getAllCategories() {
         List<CategoryEntity> list = categoryRepository.findByUserId(userService.getLoggedInUser().getId());
-        return list.stream().map(this::mapToDTO).collect(Collectors.toList());
+        return list.stream().map(categoryMapper::mapToCategoryDTO).collect(Collectors.toList());
     }
 
     @Override
@@ -36,9 +38,11 @@ public class CategoryServiceImpl implements CategoryService{
             throw new ResourceAlreadyExistsException("Category is already present for the name " + categoryDTO.getName());
         }
 
-        CategoryEntity newCategoryEntity = mapToEntity(categoryDTO);
+        CategoryEntity newCategoryEntity = categoryMapper.mapToCategoryEntity(categoryDTO);
+        newCategoryEntity.setCategoryId(UUID.randomUUID().toString());
+        newCategoryEntity.setUser(userService.getLoggedInUser());
         newCategoryEntity = categoryRepository.save(newCategoryEntity);
-        return mapToDTO(newCategoryEntity);
+        return categoryMapper.mapToCategoryDTO(newCategoryEntity);
     }
 
     @Override
@@ -51,34 +55,5 @@ public class CategoryServiceImpl implements CategoryService{
         }
 
         categoryRepository.delete(optionalCategory.get());
-    }
-
-    private CategoryEntity mapToEntity(CategoryDTO categoryDTO) {
-        return CategoryEntity.builder()
-                .name(categoryDTO.getName())
-                .description(categoryDTO.getDescription())
-                .categoryIcon(categoryDTO.getCategoryIcon())
-                .categoryId(UUID.randomUUID().toString())
-                .user(userService.getLoggedInUser())
-                .build();
-    }
-
-    private CategoryDTO mapToDTO(CategoryEntity categoryEntity) {
-        return CategoryDTO.builder()
-                .categoryId(categoryEntity.getCategoryId())
-                .name(categoryEntity.getName())
-                .description(categoryEntity.getDescription())
-                .categoryIcon(categoryEntity.getCategoryIcon())
-                .createdAt(categoryEntity.getCreatedAt())
-                .updatedAt(categoryEntity.getUpdatedAt())
-                .user(mapToUserDTO(categoryEntity.getUser()))
-                .build();
-    }
-
-    private UserDTO mapToUserDTO(User user) {
-        return UserDTO.builder()
-                .email(user.getEmail())
-                .name(user.getName())
-                .build();
     }
 }
