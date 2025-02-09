@@ -1,0 +1,492 @@
+{
+	"info": {
+		"_postman_id": "36440ae7-8f12-40e2-a8d3-fc6764b82d46",
+		"name": "Expense Manager API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "7662462"
+	},
+	"item": [
+		{
+			"name": "Read Expenses",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/expenses?sort=amount",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"expenses"
+					],
+					"query": [
+						{
+							"key": "sort",
+							"value": "amount"
+						},
+						{
+							"key": "page",
+							"value": "1?",
+							"disabled": true
+						},
+						{
+							"key": "size",
+							"value": "2",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read Expense",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/expenses/33e2db2b-ecda-4ccc-b94a-85d9d0329b0f",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"expenses",
+						"33e2db2b-ecda-4ccc-b94a-85d9d0329b0f"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Save Expense",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Lamb\",\n    \"amount\": 80,\n    \"categoryId\": \"6a01c536-9171-4b70-b938-fb3c2a11d1d8\",\n    \"description\": \"grocery shopping\",\n    \"date\": \"2025-01-01\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/expenses",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"expenses"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Expense",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"description\": \"Heating Bill\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/expenses/8a0c1013-926a-43d4-8021-162eaf30aefe",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"expenses",
+						"8a0c1013-926a-43d4-8021-162eaf30aefe"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Expense",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/expenses?expenseId=25764e8e-b751-487c-a3f7-99e64219533e",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"expenses"
+					],
+					"query": [
+						{
+							"key": "expenseId",
+							"value": "25764e8e-b751-487c-a3f7-99e64219533e"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Filter By Category",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/expenses/category?category=Grocery",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"expenses",
+						"category"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1?",
+							"disabled": true
+						},
+						{
+							"key": "size",
+							"value": "2",
+							"disabled": true
+						},
+						{
+							"key": "category",
+							"value": "Grocery"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Filter By Name",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/expenses/name?name=bill",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"expenses",
+						"name"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1?",
+							"disabled": true
+						},
+						{
+							"key": "size",
+							"value": "2",
+							"disabled": true
+						},
+						{
+							"key": "name",
+							"value": "bill"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Filter By Date",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/expenses/date?startDate=2023-12-31",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"expenses",
+						"date"
+					],
+					"query": [
+						{
+							"key": "startDate",
+							"value": "2023-12-31"
+						},
+						{
+							"key": "endDate",
+							"value": "2024-12-24",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Test\",\n    \"email\": \"test@example.com\",\n    \"password\": \"12345\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/register",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"if (pm.response.code === 200) {",
+							"    pm.environment.set('accessToken', pm.response.json().jwtToken);",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"test@example.com\",\n    \"password\": \"12345\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/login",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read User",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/profile",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"profile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update User",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Test Account\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/profile",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"profile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete User",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"GoldenaArcher\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/deactivate",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"deactivate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read Categories",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"shopping\",\n    \"description\": \"any shopping\",\n    \"icon\": \"icon2\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/categories",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"categories"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Save Category",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"entertainment\",\n    \"description\": \"additional expense\",\n    \"icon\": \"icon3\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/categories",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"categories"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Category",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/categories/d4fd05f8-faf1-4af1-ad1b-527ee854be8f",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"categories",
+						"d4fd05f8-faf1-4af1-ad1b-527ee854be8f"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{accessToken}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
