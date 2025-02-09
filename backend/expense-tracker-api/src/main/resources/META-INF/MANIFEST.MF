@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Main-Class: spring_boot_app.expense_tracker_api.ExpenseTrackerApiApplica
+ tion
+
